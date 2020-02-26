@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/chris/sync/private/wallpaper/active.jpg' 
