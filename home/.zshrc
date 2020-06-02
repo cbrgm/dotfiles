@@ -89,5 +89,8 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-# Set personal aliases
+# Simple aliases
 alias git="hub"
+
+alias personal="cd ~/personal"
+alias dev="cd ~/git"
