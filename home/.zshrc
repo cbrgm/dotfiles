@@ -93,4 +93,4 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 alias git="hub"
 
 alias personal="cd ~/personal"
-alias dev="cd ~/git"
+alias work="cd ~/git"

@@ -1,0 +1,23 @@
+[user]
+	email = chris@cbrgm.net
+	name = Christian Bargmann 
+	signingkey = A6F4D9FCC711250C7A3E2B2551D6F69191BD6219 
+[alias]
+	a = add
+	addurl = remote set-url --add origin
+	c = commit
+	cm = commit -m
+	co = checkout
+	d = diff
+	dc = diff --cached
+	l = log
+	lp = log --graph --pretty=format:'%Cred%h%Creset %Cblue%an%Creset: %s%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	pl = pull
+	ps = push
+	psf = push --force
+	s = status --short
+	sh = stash
+	shp = stash pop
+	st = status
+[commit]
+	gpgsign = true
