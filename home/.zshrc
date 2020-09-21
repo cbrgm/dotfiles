@@ -92,5 +92,6 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 # Simple aliases
 alias git="hub"
 
-alias personal="cd ~/personal"
+alias private="cd ~/personal"
 alias work="cd ~/git"
+alias cb="xclip -selection c -i"

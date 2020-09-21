@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+git reflog | egrep -io "moving from ([^[:space:]]+)" | awk '{ print $3 }' | awk ' !x[$0]++' | head -n30

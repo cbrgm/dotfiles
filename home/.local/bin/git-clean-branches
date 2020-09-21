@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+git branch --merged | egrep -v "(^\*|master|release-[0-9]\..*)" | xargs git branch -d
