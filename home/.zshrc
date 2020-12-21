@@ -85,13 +85,15 @@ export TERM=xterm-256color
 
 # User configuration
 
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export GOPATH=$HOME/go
+export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export PATH=$PATH:$HOME/.local/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$HOME/.cargo/bin:$PATH
 
 # Simple aliases
 alias git="hub"
 
-alias private="cd ~/personal"
-alias work="cd ~/git"
+alias personal="cd ~/personal"
+alias work="cd ~/work"
 alias cb="xclip -selection c -i"

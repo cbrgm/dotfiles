@@ -86,23 +86,10 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " skip confirmation
 let g:ycm_confirm_extra_conf = 0
 
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
-
 " NERDtree, hide *.pyc files
 " open nerdtree if no file is specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" ignore pyc files
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 " customize arrow symbols
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -113,6 +100,3 @@ map <C-n> :NERDTreeToggle<CR>
 
 " use system clipboard
 set clipboard=unnamed
-
-"exec python programm using f9"
-nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>

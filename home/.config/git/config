@@ -1,6 +1,6 @@
 [user]
 	email = chris@cbrgm.net
-	name = Christian Bargmann 
+	name = Christian Bargmann
 	signingkey = A6F4D9FCC711250C7A3E2B2551D6F69191BD6219 
 [alias]
 	a = add

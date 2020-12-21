@@ -212,4 +212,5 @@ assign [class="(?i)Spotify"] $ws10
 # AUTOSTART
 exec_always --no-startup-id feh --bg-fill $HOME/personal/private/wallpaper/active.jpg
 exec_always --no-startup-id nm-applet
+exec_always --no-startup-id blueman-applet
 exec_always termite
