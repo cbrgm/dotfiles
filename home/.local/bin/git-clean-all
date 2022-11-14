@@ -9,5 +9,9 @@ read -p "Continue (y/n)?" CONT
 if [ "$CONT" = "y" ]; then
     local_branches | xargs git branch -D
 fi
+
+git fetch -p
+git pull
+
 exit 0
 
