@@ -1,23 +1,25 @@
 [user]
 	email = chris@cbrgm.net
-	name = Christian Bargmann
-	signingkey = A6F4D9FCC711250C7A3E2B2551D6F69191BD6219 
+	name = cbrgm
 [alias]
 	a = add
 	addurl = remote set-url --add origin
 	c = commit
 	cm = commit -m
 	co = checkout
+	cob = !git checkout -b cbrgm-patch-$(openssl rand -hex 3)
 	d = diff
 	dc = diff --cached
 	l = log
 	lp = log --graph --pretty=format:'%Cred%h%Creset %Cblue%an%Creset: %s%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	pl = pull
-	ps = push
+	ps = !git push -u origin $(git branch --show-current) 
 	psf = push --force
 	s = status --short
 	sh = stash
 	shp = stash pop
 	st = status
+        df = !git switch $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 [commit]
-	gpgsign = true
+[init]
+	defaultBranch = main
