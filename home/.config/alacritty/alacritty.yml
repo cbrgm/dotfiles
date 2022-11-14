@@ -1,0 +1,19 @@
+colors:
+  primary:
+    background: '#1F1F28'
+window:
+  opacity: 0.97
+  decorations: none
+font:
+  size: 14
+  normal:
+    family: Hack Nerd Font Mono
+    style: Regular
+
+  bold:
+    family: Hack Nerd Font Mono
+    style: Bold
+
+  italic:
+    family: Hack Nerd Font Mono
+    style: Italic
