@@ -17,8 +17,8 @@ alt + shift - r : \
 ####### Window Management Hotkeys #############
 # change focus
 alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
+# alt - j : yabai -m window --focus south
+# alt - k : yabai -m window --focus north
 alt - l : yabai -m window --focus east
 
 # cycle through stack windows
@@ -26,18 +26,18 @@ alt - l : yabai -m window --focus east
 # alt - n : yabai -m window --focus stack.prev || yabai -m window --focus north
 
 # forwards
-alt - p : yabai -m query --spaces --space \
-            | jq -re ".index" \
-            | xargs -I{} yabai -m query --windows --space {} \
-            | jq -sre "add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.x, .id) | reverse | nth(index(map(select(.focused == 1))) - 1).id" \
-            | xargs -I{} yabai -m window --focus {}
+alt - k : yabai -m query --spaces --space \
+  | jq -re ".index" \
+  | xargs -I{} yabai -m query --windows --space {} \
+  | jq -sre 'add | map(select(."is-minimized"==false)) | sort_by(.display, .frame.y, .frame.x, .id) | . as $array | length as $array_length | index(map(select(."has-focus"==true))) as $has_index | if $has_index > 0 then nth($has_index - 1).id else nth($array_length - 1).id end' \
+  | xargs -I{} yabai -m window --focus {}
 
 # backwards
-alt - n : yabai -m query --spaces --space \
-            | jq -re ".index" \
-            | xargs -I{} yabai -m query --windows --space {} \
-            | jq -sre "add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id" \
-            | xargs -I{} yabai -m window --focus {}
+alt - j : yabai -m query --spaces --space \
+  | jq -re ".index" \
+  | xargs -I{} yabai -m query --windows --space {} \
+  | jq -sre 'add | map(select(."is-minimized"==false)) | sort_by(.display, .frame.y, .frame.x, .id) | . as $array | length as $array_length | index(map(select(."has-focus"==true))) as $has_index | if $array_length - 1 > $has_index then nth($has_index + 1).id else nth(0).id end' \
+  | xargs -I{} yabai -m window --focus {}
 
 # (alt) change focus (using arrow keys)
 alt - left  : yabai -m window --focus west
