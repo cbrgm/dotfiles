@@ -2,7 +2,7 @@ colors:
   primary:
     background: '#1F1F28'
 window:
-  opacity: 0.97
+  opacity: 0.96
   decorations: none
 font:
   size: 14

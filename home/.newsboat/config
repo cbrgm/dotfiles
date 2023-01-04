@@ -1,0 +1,41 @@
+# Hide feeds where all the items are read.
+show-read-feeds no
+
+# Make the text width readable
+text-width 50
+
+# Use multiple threads to download all the news faster.
+reload-threads 11
+
+browser "open -g -a 'Google Chrome' %u"
+# browser ~/bin/newsboat-browser.sh
+# browser "/usr/bin/brave-browser %u"
+
+# unbind keys
+unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+unbind-key ^D
+unbind-key ^U
+unbind-key o
+unbind-key g
+unbind-key G
+
+# bind keys - vim style
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+bind-key ^D pagedown
+bind-key ^U pageup
+bind-key b toggle-source-view
+bind-key U toggle-show-read-feeds
+bind-key u show-urls
+bind-key g home
+bind-key G end
+bind-key b open-in-browser-and-mark-read
+bind-key B open-in-browser
+bind-key i sort
+bind-key I rev-sort

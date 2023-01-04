@@ -1,0 +1,10 @@
+https://www.theverge.com/rss/index.xml technology
+https://news.ycombinator.com/rss technology
+https://www.tagesschau.de/xml/atom/ news
+https://www.reddit.com/r/pcgaming/top/.rss?sort=top&t=month gaming "~r/PC Gaming"
+https://www.reddit.com/r/games/top/.rss?sort=top&t=month gaming "~r/Games"
+https://www.reddit.com/r/technology/top/.rss?sort=top&t=month technology "~r/Technology"
+https://www.reddit.com/r/neovim/top/.rss?sort=top&t=month technology "~r/Neovim"
+https://www.reddit.com/r/neovim/top/.rss technology "~r/Neovim (new)"
+https://www.reddit.com/r/golang/top/.rss technology "~r/Golang"
+https://www.mydealz.de/rss random "MyDealz"
