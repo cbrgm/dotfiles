@@ -23,3 +23,5 @@
 [commit]
 [init]
 	defaultBranch = main
+[push]
+	autoSetupRemote = true
