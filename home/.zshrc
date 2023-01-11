@@ -108,9 +108,6 @@ export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$HOME/go
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export cb="pbcopy"
-export cbp="pbpaste"
-export PATH="/Users/christian.bargmann/.rover/bin:$PATH"
 export GPG_TTY=$(tty)
 
 alias ave="aws-vault exec"
@@ -118,6 +115,24 @@ alias docker="podman"
 alias code="nvim"
 alias vim="nvim"
 alias v="nvim"
+
+[ -f ~/personal/gh-fused/ghfused.source ] && source ~/personal/gh-fused/ghfused.source
+
 alias gho="gh browse"
 
-[ -f ~/workspace/gh-fused/ghfused.source ] && source ~/workspace/gh-fused/ghfused.source
+function clonet {
+    ghsr $@ | xargs -I{} sh -c 'gh repo clone {} /tmp/$(basename {} /)'
+}
+
+function clonep {
+    ghsr $@ | xargs -I{} sh -c 'gh repo clone {} ~/personal/$(basename {} /)'
+}
+
+function clonew {
+    ghsr $@ | xargs -I{} sh -c 'gh repo clone {} ~/workspace/$(basename {} /)'
+}
+
+function ghfork {
+    ghsr $@ | xargs -I{} sh -c 'gh repo fork {}'
+}
+
