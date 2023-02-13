@@ -73,6 +73,7 @@ ZSH_THEME="robbyrussell"
 plugins=(
 	git
 	kubectl
+	vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,6 +111,7 @@ export GOPATH=$HOME/go
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GPG_TTY=$(tty)
 
+alias pass="gopass show -c"
 alias ave="aws-vault exec"
 alias docker="podman"
 alias code="nvim"
