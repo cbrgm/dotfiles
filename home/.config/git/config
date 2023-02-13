@@ -1,26 +1,69 @@
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = auto
 [user]
 	email = chris@cbrgm.net
 	name = cbrgm
+[core]
+	pager = less -FRSX
+	editor = nvim
 [alias]
-	a = add
-	addurl = remote set-url --add origin
-	c = commit
-	cm = commit -m
+	br = branch
+	ci = commit
 	co = checkout
-	cob = !git checkout -b cbrgm-patch-$(openssl rand -hex 3)
-	d = diff
-	dc = diff --cached
-	l = log
-	lp = log --graph --pretty=format:'%Cred%h%Creset %Cblue%an%Creset: %s%Creset%C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	pl = pull
-	ps = !git push -u origin $(git branch --show-current) 
-	psf = push --force
-	s = status --short
-	sh = stash
-	shp = stash pop
-	st = status
-        df = !git switch $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
-[commit]
+	fo = fetch origin
+	ps = !git push -u origin $(git branch --show-current)
+	st = status -sb
+	# Set remotes/origin/HEAD -> defaultBranch (copied from https://stackoverflow.com/a/67672350/14870317)
+	remoteSetHead = remote set-head origin --auto
+	# Get default branch name (copied from https://stackoverflow.com/a/67672350/14870317)
+	defaultBranch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+	# Clean merged branches (adapted from https://stackoverflow.com/a/6127884/14870317)
+	sweep = !git branch --merged $(git defaultBranch) | grep -E -v " $(git defaultBranch)$" | xargs -r git branch -d && git remote prune origin
+	# http://www.jukie.net/bart/blog/pimping-out-git-log
+	lg = log --graph --all --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)%an%Creset %C(yellow)%d%Creset'
+	# Serve local repo. http://coderwall.com/p/eybtga
+	# Then other can access via `git clone git://#{YOUR_IP_ADDRESS}/
+	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+	# Checkout to defaultBranch
+	m = !git checkout $(git defaultBranch)
+	# Removes a file from the index
+	unstage = reset HEAD --[commit]
+	# Show the user email for the current repository.
+	whoami = config user.email
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch --all
+	remotes = remote --verbose
+	# Show the diff between the latest commit and the current state.
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	# `git di $number` shows the diff between the state `$number` revisions ago and the current state.
+	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+	# Interactive rebase with the given number of latest commits.
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+	# Remove the old tag with this name and tag the latest commit with it.
+	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+	# Commit all changes.
+	ca = !git add -A && git commit -av
+	# list files which have changed since REVIEW_BASE
+	# (REVIEW_BASE defaults to 'master' in my zshrc)
+	files = !git diff --name-only $(git merge-base HEAD $(git defaultBranch))
+	# Same as above, but with a diff stat instead of just names
+	# (better for interactive use)
+	stat = !git diff --stat $(git merge-base HEAD $(git defaultBranch))
+	# Open all files changed since REVIEW_BASE in Vim tabs
+	# Then, run fugitive's :Gdiff in each tab
+	review = !nvim -p +\"tabdo Ghdiffsplit $(git defaultBranch)\" $(git files)
+	reviewone = !nvim -p +\"tabdo Ghdiffsplit $(git defaultBranch)\"
+	# List contributors with number of commits.
+	contributors = shortlog --summary --numbered
+[help]
+	autocorrect = 1
+[push]
+	default = simple
 [init]
 	defaultBranch = main
 [push]
