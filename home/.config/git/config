@@ -12,9 +12,12 @@
 	editor = nvim
 [alias]
 	br = branch
+	c = commit
 	ci = commit
-	co = checkout
-	fo = fetch origin
+	cm = commit -m
+	co = switch
+	fo = fetch -p origin
+	pl = pull
 	ps = !git push -u origin $(git branch --show-current)
 	st = status -sb
 	# Set remotes/origin/HEAD -> defaultBranch (copied from https://stackoverflow.com/a/67672350/14870317)
@@ -46,6 +49,7 @@
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
 	# Remove the old tag with this name and tag the latest commit with it.
 	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+	go = "!f() { git switch \"$1\" 2> /dev/null || git checkout -b \"$1\"; }; f"
 	# Commit all changes.
 	ca = !git add -A && git commit -av
 	# list files which have changed since REVIEW_BASE
@@ -56,10 +60,11 @@
 	stat = !git diff --stat $(git merge-base HEAD $(git defaultBranch))
 	# Open all files changed since REVIEW_BASE in Vim tabs
 	# Then, run fugitive's :Gdiff in each tab
-	review = !nvim -p +\"tabdo Ghdiffsplit $(git defaultBranch)\" $(git files)
-	reviewone = !nvim -p +\"tabdo Ghdiffsplit $(git defaultBranch)\"
+	review = !nvim $(git files)
 	# List contributors with number of commits.
 	contributors = shortlog --summary --numbered
+	# Pull Request
+	pr = !gh pr create --fill
 [help]
 	autocorrect = 1
 [push]
