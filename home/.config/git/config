@@ -20,17 +20,23 @@
 	pl = pull
 	ps = !git push -u origin $(git branch --show-current)
 	st = status -sb
+	qc = !git add -A && git commit -m 'wip'
+	# Update all submodules in one go
+	updateSubs = submodule update --init --recursive
 	# Set remotes/origin/HEAD -> defaultBranch (copied from https://stackoverflow.com/a/67672350/14870317)
 	remoteSetHead = remote set-head origin --auto
 	# Get default branch name (copied from https://stackoverflow.com/a/67672350/14870317)
 	defaultBranch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+	new = "!f() { git checkout $(git defaultBranch) && git pull; branch_name=$(echo \"$@\" | sed 's/ /-/g'); if [ -z \"$branch_name\" ]; then branch_name=cbrgm-patch-$(date +%s); fi; git checkout -b $branch_name; }; f"
 	# Clean merged branches (adapted from https://stackoverflow.com/a/6127884/14870317)
-	sweep = !git branch --merged $(git defaultBranch) | grep -E -v " $(git defaultBranch)$" | xargs -r git branch -d && git remote prune origin
+	sweep = !git branch | grep -E -v " $(git defaultBranch)$" | xargs -r git branch -D && git remote prune origin
 	# http://www.jukie.net/bart/blog/pimping-out-git-log
 	lg = log --graph --all --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)%an%Creset %C(yellow)%d%Creset'
 	# Serve local repo. http://coderwall.com/p/eybtga
 	# Then other can access via `git clone git://#{YOUR_IP_ADDRESS}/
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+	# Checkout to defaultBranch
+	tidy = !git checkout $(git defaultBranch) && git fetch -p && git pull --ff && git sweep
 	# Checkout to defaultBranch
 	m = !git checkout $(git defaultBranch)
 	# Removes a file from the index
@@ -64,7 +70,10 @@
 	# List contributors with number of commits.
 	contributors = shortlog --summary --numbered
 	# Pull Request
+	pra = !git add -A && git commit -av && gh pr create --fill
 	pr = !gh pr create --fill
+	undo = reset --soft HEAD^
+	redo = reset 'HEAD@{1}'
 [help]
 	autocorrect = 1
 [push]
@@ -73,3 +82,7 @@
 	defaultBranch = main
 [push]
 	autoSetupRemote = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[diff]
+	renameLimit = 3040
